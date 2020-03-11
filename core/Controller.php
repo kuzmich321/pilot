@@ -10,5 +10,12 @@ class Controller extends Application
     parent::__construct();
     $this->controller = $controller;
     $this->action = $action;
+    $this->view = new View();
+  }
+
+  public function onConstruct()
+  {
+    //
   }
 }
+
