@@ -12,25 +12,30 @@ class Model
     $this->onConstruct();
   }
 
-  public function onConstruct()
+  public static function getDb()
   {
-  }
-
-  public static function find($params = [])
-  {
-    $params = static::fetchStyleParams($params);
-    $params = static::softDeleteParams($params);
-    $resultsQuery = static::getDb()->find(static::$table, $params, static::class);
-
-    return $resultsQuery ? $resultsQuery : [];
-  }
-
-  protected static function fetchStyleParams($params)
-  {
-    if (!isset($params['fetchStyle'])) {
-      $params['fetchStyle'] = PDO::FETCH_CLASS;
+    if (!self::$db) {
+      self::$db = DB::getInstance();
     }
-    return $params;
+    return self::$db;
+  }
+
+  public static function getColumns()
+  {
+    return static::getDb()->getColumns(static::$table);
+  }
+
+  public function getColumnsForSaving()
+  {
+    $columns = static::getColumns();
+    $fields = [];
+
+    foreach ($columns as $column) {
+      $key = $column->Field;
+      $fields[$key] = $this->{$key};
+    }
+
+    return $fields;
   }
 
   protected static function softDeleteParams($params)
@@ -49,9 +54,21 @@ class Model
     return $params;
   }
 
-  public static function findById($id)
+  protected static function fetchStyleParams($params)
   {
-    return static::findFirst(['conditions' => 'id = ?', 'bind' => [$id]]);
+    if (!isset($params['fetchStyle'])) {
+      $params['fetchStyle'] = PDO::FETCH_CLASS;
+    }
+    return $params;
+  }
+
+  public static function find($params = [])
+  {
+    $params = static::fetchStyleParams($params);
+    $params = static::softDeleteParams($params);
+    $resultsQuery = static::getDb()->find(static::$table, $params, static::class);
+
+    return $resultsQuery ? $resultsQuery : [];
   }
 
   public static function findFirst($params = [])
@@ -62,29 +79,12 @@ class Model
     return static::getDb()->findFirst(static::$table, $params, static::class);
   }
 
-  public function getColumnsForSaving()
+  public static function findById($id)
   {
-    $columns = static::getColumns();
-    $fields = [];
-
-    foreach ($columns as $column) {
-      $key = $column->Field;
-      $fields[$key] = $this->{$key};
-    }
-
-    return $fields;
+    return static::findFirst(['conditions' => 'id = ?', 'bind' => [$id]]);
   }
 
-  public static function getColumns()
+  public function onConstruct()
   {
-    return static::getDb()->getColumns(static::$table);
-  }
-
-  public static function getDb()
-  {
-    if (!self::$db) {
-      self::$db = DB::getInstance();
-    }
-    return self::$db;
   }
 }
