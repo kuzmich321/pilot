@@ -4,7 +4,7 @@ class Model
 {
   protected static $db, $table, $softDelete = false;
   public $id;
-  protected $modelName;
+  protected $modelName, $validates = true, $validationErrors = [];
 
   public function __construct()
   {
@@ -84,7 +84,63 @@ class Model
     return static::findFirst(['conditions' => 'id = ?', 'bind' => [$id]]);
   }
 
+  public function save()
+  {
+    $this->validator();
+    $save = false;
+
+    if ($this->validates) {
+      $this->beforeSave();
+      $fields = $this->getColumnsForSaving();
+      if ($this->isNew()) {
+        $save = $this->insert($fields);
+        if ($save) {
+          $this->id = static::getDb()->lastId();
+        }
+      } else {
+        $save = $this->update($fields);
+      }
+      if ($save) {
+        $this->afterSave();
+      }
+    }
+    return $save;
+  }
+
+  public function insert($fields)
+  {
+    if (empty($fields)) return false;
+    if (array_key_exists('id', $fields)) unset($fields['id']);
+    return static::getDb()->insert(static::$table, $fields);
+  }
+
+  public function update($fields)
+  {
+    return (empty($fields) || $this->id === '') ? false : static::getDb()->update(static::$table, $this->id, $fields);
+  }
+
+  public function beforeSave()
+  {
+    //
+  }
+
+  public function afterSave()
+  {
+    //
+  }
+
+  public function validator()
+  {
+    //
+  }
+
   public function onConstruct()
   {
+    //
+  }
+
+  protected function isNew()
+  {
+    return (property_exists($this, 'id') && !empty($this->id)) ? false : true;
   }
 }
