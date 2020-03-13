@@ -119,12 +119,75 @@ class Model
     return (empty($fields) || $this->id === '') ? false : static::getDb()->update(static::$table, $this->id, $fields);
   }
 
+  public function delete()
+  {
+    if ($this->id === '' || !isset($this->id)) return false;
+    $this->beforeDelete();
+    $deleted = static::$softDelete ? $this->update(['deleted' => 1]) : static::getDb()->delete(static::$table, $this->id);
+    $this->afterDelete();
+
+    return $deleted;
+  }
+
+  public function query($sql, $bind = [])
+  {
+    return static::getDb()->query($sql, $bind);
+  }
+
+  public function data()
+  {
+    $data = new stdClass();
+    foreach (static::getColumns() as $column) {
+      $columnName = $column->Field;
+      $data->{$columnName} = $this->{$columnName};
+    }
+    return $data;
+  }
+
+  public function runValidation($validator)
+  {
+    $key = $validator->field;
+    if (!$validator->success) {
+      $this->addErrorMessage($key, $validator->msg);
+    }
+  }
+
+  public function getErrorMessages()
+  {
+    return $this->validationErrors;
+  }
+
+  public function validationPassed()
+  {
+    return $this->validates;
+  }
+
+  public function addErrorMessage($field, $msg)
+  {
+    $this->validates = false;
+    if (array_key_exists($field, $this->validationErrors)) {
+      $this->validationErrors[$field] .= " {$msg}";
+    } else {
+      $this->validationErrors[$field] = $msg;
+    }
+  }
+
   public function beforeSave()
   {
     //
   }
 
   public function afterSave()
+  {
+    //
+  }
+
+  public function beforeDelete()
+  {
+    //
+  }
+
+  public function afterDelete()
   {
     //
   }
