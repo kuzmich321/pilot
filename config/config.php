@@ -18,3 +18,8 @@ define('PROOT', '/pilot/');
 
 // this will be used if no title provided
 define('SITE_TITLE', 'Pilot');
+
+define('CURRENT_USER_SESSION_NAME', 'kwXeusqldkiKjehsLQZJFKJ');
+
+define('REMEMBER_ME_COOKIE_NAME', 'ASD1836gngAgfLKJHs321');
+define('REMEMBER_ME_COOKIE_EXPIRY', 604800);
