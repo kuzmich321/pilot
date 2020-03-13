@@ -2,7 +2,7 @@
 
 class Controller extends Application
 {
-  public $view;
+  public $view, $request;
   protected $controller, $action;
 
   public function __construct($controller, $action)
@@ -10,6 +10,7 @@ class Controller extends Application
     parent::__construct();
     $this->controller = $controller;
     $this->action = $action;
+    $this->request = new Input();
     $this->view = new View();
   }
 
