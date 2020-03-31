@@ -2,13 +2,38 @@
 
 class Input
 {
-  public static function sanitize($dirty)
+  public function isPost()
   {
-    return htmlentities($dirty, ENT_QUOTES, 'UTF-8');
+    return $this->getRequestMethod() === 'POST';
   }
 
-  public static function get($input)
+  public function isPut()
   {
-    return isset($_POST[$input]) ? self::sanitize($_POST[$input]) : self::sanitize($_GET[$input]);
+    return $this->getRequestMethod() === 'PUT';
+  }
+
+  public function isGet()
+  {
+    return $this->getRequestMethod() === 'GET';
+  }
+
+  public function getRequestMethod()
+  {
+    return strtoupper($_SERVER['REQUEST_METHOD']);
+  }
+
+  public function get($input = false)
+  {
+    if (!$input) {
+      $data = [];
+
+      foreach ($_REQUEST as $field => $value) {
+        $data[$field] = trim(sanitize($value));
+      }
+
+      return false;
+    }
+
+    return array_key_exists($input, $_REQUEST) ? trim(sanitize($_REQUEST[$input])) : '';
   }
 }
