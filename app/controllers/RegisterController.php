@@ -21,7 +21,7 @@ class RegisterController extends Controller
           $user->login();
           Router::redirect('');
         }  else {
-          $loginModel->addErrorMessage('username','There is an error with your username or password');
+          $loginModel->addErrorMessage('email','There is an error with your email or password');
         }
       }
     }
