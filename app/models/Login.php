@@ -2,7 +2,7 @@
 
 class Login extends Model
 {
-  public $email, $password;
+  public $email, $password, $remember_me;
 
   public function validator()
   {

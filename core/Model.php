@@ -144,6 +144,20 @@ class Model
     return $data;
   }
 
+  public function assign($params)
+  {
+    if (!empty($params)) {
+      foreach ($params as $key => $value) {
+        if (property_exists($this, $key)) {
+          $this->$key = sanitize($value);
+        }
+      }
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   public function runValidation($validator)
   {
     $key = $validator->field;

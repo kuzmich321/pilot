@@ -36,4 +36,9 @@ class Input
 
     return array_key_exists($input, $_REQUEST) ? trim(sanitize($_REQUEST[$input])) : '';
   }
+
+  public function csrfCheck()
+  {
+    return checkToken($this->get('csrf_token')) ? true : false;
+  }
 }
