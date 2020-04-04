@@ -19,7 +19,8 @@ class RegisterController extends Controller
         $user = Users::findByEmail($_POST['email']);
         if($user && password_verify($this->request->get('password'), $user->password)) {
           $user->login();
-          Router::redirect('');
+          $_SESSION['username'] = $user->username;
+          Router::redirect('profile');
         }  else {
           $loginModel->addErrorMessage('email','There is an error with your email or password');
         }
@@ -34,5 +35,10 @@ class RegisterController extends Controller
   {
     if (currentUser()) currentUser()->logout();
     Router::redirect('register/login');
+  }
+
+  public function register()
+  {
+    $this->view->render('register/index');
   }
 }
