@@ -15,7 +15,7 @@ class UniqueValidator extends Validator
 
     if (!empty($this->model->id)) {
       $conditions[] = "id != ?";
-      $bind = $this->model->id;
+      $bind[] = $this->model->id;
     }
 
     foreach ($this->additionalFieldData as $adds) {
@@ -25,6 +25,6 @@ class UniqueValidator extends Validator
 
     $queryParams = ['conditions' => $conditions, 'bind' => $bind];
 
-    return $this->model::findFirst($queryParams);
+    return !$this->model::findFirst($queryParams);
   }
 }
