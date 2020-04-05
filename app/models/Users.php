@@ -4,7 +4,7 @@ class Users extends Model
 {
   protected static $table = 'users', $softDelete = true;
   public static $currentLoggedInUser = null;
-  public $id, $username, $email, $password, $fname, $lname, $deleted = 0, $confirm;
+  public $id, $username, $email, $password, $fname, $lname, $deleted = 0, $confirm, $file, $created_at;
 
   public function validator()
   {
