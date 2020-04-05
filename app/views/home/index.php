@@ -4,7 +4,7 @@
         <div class="col s12 m7">
             <h2>Welcome!</h2>
             <a class="waves-effect waves-light btn" href="<?= PROOT ?>register/login">Log In</a>
-            <a class="waves-effect waves-light btn">Register</a>
+            <a class="waves-effect waves-light btn" href="<?= PROOT ?>register/register">Register</a>
         </div>
     </div>
 </div>
