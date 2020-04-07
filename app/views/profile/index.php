@@ -1,5 +1,6 @@
 <?php $this->start('body'); ?>
 <div class="container center-align">
+    <a class="waves-light btn-large custom-btn" href="<?= PROOT ?>register/logout">Log Out</a>
   <div class="wrapper">
     <div class="card slide-in-elliptic-right-fwd">
       <div class="card-content">
