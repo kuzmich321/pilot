@@ -33,8 +33,7 @@ class Users extends Model
   public static function currentUser()
   {
     if (!isset(self::$currentLoggedInUser) && Session::exists(CURRENT_USER_SESSION_NAME)) {
-      $user = new Users((int)Session::get(CURRENT_USER_SESSION_NAME));
-      self::$currentLoggedInUser = $user;
+      self::$currentLoggedInUser = self::findById((int)Session::get(CURRENT_USER_SESSION_NAME));
     }
     return self::$currentLoggedInUser;
   }
@@ -49,7 +48,7 @@ class Users extends Model
     return self::findFirst(['conditions' => 'email = ?', 'bind' => [$email]]);
   }
 
-  public function login($rememberMe = false)
+  public function login()
   {
     Session::set(CURRENT_USER_SESSION_NAME, $this->id);
   }
