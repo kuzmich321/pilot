@@ -37,3 +37,28 @@
 3. В моем случае <b>RegisterController</b> берет на себя роль не только регистрации, но и логина (в том числе logout)
 4. <b>ProfileController</b> возвращает представление залогиненного пользователя.
 5. !!! На данный момент логику работы с файлами я оставил в ProfileController (что не есть верно, нарушение принципа <b>SOLID</b>)
+6. Добавлен русский язык (!необходимо в дальнейшем переделать и опробовать другой подход)
+
+
+    Для того, чтобы запустить проект, необходимо:
+
+1. Запустить <b>XAMPP</b>
+2. Заходим на <b>/localhost/phpmyadmin/</b>
+3. Создаем БД (у меня) <b>pilot</b>
+4. Сгенерировать таблицу: \
+CREATE TABLE `users` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `username` varchar(150) NOT NULL,
+ `email` varchar(150) NOT NULL,
+ `fname` varchar(150) NOT NULL,
+ `lname` varchar(150) NOT NULL,
+ `password` varchar(255) NOT NULL,
+ `file` varchar(500) DEFAULT NULL,
+ `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+ `deleted` tinyint(4) NOT NULL DEFAULT 0,
+ PRIMARY KEY (`id`),
+ UNIQUE KEY `username` (`username`),
+ UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4
+5. Если у вас другие данные БД, то их можно спокойно найти в <b>/app/config/config.php</b>
+6. Заходим на <b>/localhost/pilot/</b>
