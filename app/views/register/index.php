@@ -16,39 +16,39 @@
             <div class="row">
               <div class="input-field col s12">
                 <input name="username" id="username" type="text" class="validate">
-                <label for="username">Username</label>
+                <label for="username"><?= __USERNAME ?></label>
               </div>
             </div>
             <div class="row">
               <div class="input-field col s12">
                 <input name="fname" id="fname" type="text" class="validate">
-                <label for="fname">First Name</label>
+                <label for="fname"><?= __FNAME ?></label>
               </div>
             </div>
             <div class="row">
               <div class="input-field col s12">
                 <input name="lname" id="lname" type="text" class="validate">
-                <label for="lname">Last Name</label>
+                <label for="lname"><?= __LNAME ?></label>
               </div>
             </div>
             <div class="row">
               <div class="input-field col s12">
                 <input name="password" id="password" type="password" class="validate">
-                <label for="password">Password</label>
+                <label for="password"><?= __PASSWORD ?></label>
               </div>
             </div>
             <div class="row">
               <div class="input-field col s12">
                 <input name="confirm" id="confirm" type="password" class="validate">
-                <label for="confirm">Confirm Password</label>
+                <label for="confirm"><?= __CONFIRM ?></label>
               </div>
             </div>
-            <button class="btn w-75 waves-effect waves-light" type="submit">Sign Up</button>
+            <button class="btn w-75 waves-effect waves-light" type="submit"><?= __REGISTER ?></button>
           </form>
         </div>
       <?php else: ?>
         <div class="card-content">
-          <p>You are already registered and logged in</p>
+          <p><?= __REGISTERED ?></p>
         </div>
       <?php endif; ?>
     </div>

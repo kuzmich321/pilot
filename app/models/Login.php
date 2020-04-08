@@ -6,7 +6,7 @@ class Login extends Model
 
   public function validator()
   {
-    $this->runValidation(new RequiredValidator($this, ['field' => 'email', 'msg' => 'Email is required']));
-    $this->runValidation(new RequiredValidator($this, ['field' => 'password', 'msg' => 'Password is required']));
+    $this->runValidation(new RequiredValidator($this, ['field' => 'email', 'msg' => 'Email' . __REQUIRED]));
+    $this->runValidation(new RequiredValidator($this, ['field' => 'password', 'msg' => __PASSWORD . __REQUIRED]));
   }
 }

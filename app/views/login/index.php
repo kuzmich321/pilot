@@ -16,15 +16,15 @@
                       <div class="row">
                           <div class="input-field col s12">
                               <input name="password" id="password" type="password" class="validate">
-                              <label for="password">Password</label>
+                              <label for="password"><?= __PASSWORD ?></label>
                           </div>
                       </div>
-                      <button class="btn w-75 waves-effect waves-light" type="submit">Login</button>
+                      <button class="btn w-75 waves-effect waves-light" type="submit"><?= __LOGIN ?></button>
                   </form>
               </div>
           <?php else: ?>
               <div class="card-content">
-                  <p>You are already logged in</p>
+                  <p><?= __LOGGED_IN ?></p>
               </div>
           <?php endif; ?>
         </div>
