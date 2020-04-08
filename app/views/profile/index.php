@@ -15,13 +15,13 @@
                     <div class="file-field input-field">
                         <div class="btn">
                             <span>File</span>
-                            <input type="file" name="file">
+                            <input id="profile-input" type="file" name="file">
                         </div>
                         <div class="file-path-wrapper">
                             <input class="file-path validate" type="text">
                         </div>
                     </div>
-                    <button type="submit" class="waves-light btn">Upload</button>
+                    <button type="submit" class="waves-light btn" disabled>Upload</button>
                 </form>
             </div>
         </div>

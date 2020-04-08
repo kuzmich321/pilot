@@ -16,5 +16,6 @@
 </head>
 <body class="color-change-2x">
 <?= $this->content('body'); ?>
+<script src="<?= PROOT ?>js/index.js"></script>
 </body>
 </html>
